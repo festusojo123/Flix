@@ -99,9 +99,9 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-
     MovieCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MovieCell"];
-
+    cell.posterView.image = nil;
+    
     NSDictionary *movie = self.filteredMovies[indexPath.row];
     cell.titleLabel.text = movie[@"title"];
     cell.synopsisLabel.text = movie[@"overview"];
@@ -117,7 +117,7 @@
                                     success:^(NSURLRequest *imageRequest, NSHTTPURLResponse *imageResponse, UIImage *image) {
                                         
                                         // imageResponse will be nil if the image is cached
-                                        if (imageResponse) {
+                                       // if (imageResponse) {
                                             NSLog(@"Image was NOT cached, fade in image");
                                             weakCell.posterView.alpha = 0.0;
                                             weakCell.posterView.image = image;
@@ -126,7 +126,7 @@
                                             [UIView animateWithDuration:0.3 animations:^{
                                                 weakCell.posterView.alpha = 1.0;
                                             }];
-                                        }
+                                        //}
                                     
                                     }
                                     failure:^(NSURLRequest *request, NSHTTPURLResponse * response, NSError *error) {
